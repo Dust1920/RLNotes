@@ -1,5 +1,7 @@
 # Preface {.unnumbered}
 
-This is a Quarto book.
+Reinforced Learning is learning what to do -how to map situations to actions- so as maximize a numerical reard signal. 
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+We formalize the problem of reinforcement learning using ideas from dynamical systems theory, specially, as the optimal control of incompletely-known Markov decission processes. 
+
+One of the challenges that arise in reinforcement learning, and not in other kinds of learning, is the trade-off betweeen exploration and exploitation. The agent has.
