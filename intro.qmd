@@ -23,3 +23,4 @@ Consider the familiar child’s game of tic-tac-toe. Two players take turns play
 Because a skilled player can play so as never to lose, let us assume that we are playing against an imperfect player, one whose play is sometimes incorrect and allows us to win. For the moment, in fact, let us consider draws and losses to be equally bad for us. 
 
 How might we construct a player that will find the imperfections in its opponent’s play and learn to maximize its chances of winning?
+
