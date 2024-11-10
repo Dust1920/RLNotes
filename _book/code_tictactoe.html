@@ -205,8 +205,37 @@ s &amp; \equiv \left[
     \mathbf{X} &amp; \mathbf{X} &amp; \mathbf{} \\  
     \mathbf{X} &amp; \mathbf{} &amp; \mathbf{O} \\  
     \end{array}
-    \right]
+    \right].
 \end{align*}\]</span></p>
+<p>Note that exists states <span class="math inline">\(u_1,u_2,\ldots,u_6\)</span> such that</p>
+<p><span class="math display">\[
+    u_1 \to u_2 \to u_3 \to \ldots \to u_6 \to s.
+\]</span></p>
+<p>In other words, exists a function <span class="math inline">\(f:\mathcal{S}\times\mathcal{A} \to \mathcal{S}\)</span> such that</p>
+<p><span class="math display">\[
+    S_{t+1} = f(S_t, a_t),
+\]</span></p>
+<p>where <span class="math inline">\(f\)</span> represent the model dynamics. In this case <span class="math inline">\(f\)</span> was the response of the rival. Consider the initial condition <span class="math inline">\(S_0\)</span></p>
+<p><span class="math display">\[
+S_0 = \{\} \equiv \left[\begin{array}{ccc}
+&amp;&amp; \\
+&amp;&amp; \\
+&amp;&amp; \\
+\end{array}
+\right]
+\]</span></p>
+<p>when you are the first player, if you are the second (with <span class="math inline">\(\mathbf{X}\)</span> or <span class="math inline">\(\mathbf{O}\)</span>)</p>
+<p><span class="math display">\[
+    S_0((i,j), p) = \left(1, ((i,j), p) \right), p \in \{\mathbf{X}, \mathbf{O}\}.
+\]</span></p>
+<p>In both cases, with <span class="math inline">\(S_0\)</span>, the agent continue choose a action <span class="math inline">\(a_0\)</span> and obtain the following state</p>
+<p><span class="math display">\[
+    S_1 = f(S_0, a_0).
+\]</span></p>
+<p>Later defines the history <span class="math inline">\(H_t\)</span> as the sucession of the following shape</p>
+<p><span class="math display">\[
+    H_t = \{S_0, a_0, S_1,a_1, \ldots, a_{t - 1}, S_t\}
+\]</span></p>
 
 
 </section>
