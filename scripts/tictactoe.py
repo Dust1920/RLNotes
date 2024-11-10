@@ -148,8 +148,7 @@ def tic_tac_toe(pos_0, size, players, **kwargs):
 
 # Tic Tac Toe Game
 X, O = 7, 5
-
-SIZE_BOARD = 4
+SIZE_BOARD = 3
 INIT_POS = (0, 0)
 
 

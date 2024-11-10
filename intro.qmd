@@ -24,3 +24,25 @@ Because a skilled player can play so as never to lose, let us assume that we are
 
 How might we construct a player that will find the imperfections in its opponent’s play and learn to maximize its chances of winning?
 
+## Construct Decision Making Model
+Here is how the tic-tac-toe problem would be approached with a method making use
+of a value function. First we would set up a table of numbers, one for each possible state
+of the game. Each number will be the latest estimate of the probability of our winning
+from that state. We treat this estimate as the state’s value, and the whole table is the
+learned value function. State A has higher value than state B, or is considered “better”
+than state B, if the current estimate of the probability of our winning from A is higher
+than it is from B. Assuming we always play Xs, then for all states with three Xs in a row
+the probability of winning is 1, because we have already won. Similarly, for all states
+with three Os in a row, or that are filled up, the correct probability is 0, as we cannot
+win from them. We set the initial values of all the other states to 0.5, representing a
+guess that we have a 50% chance of winning.
+
+## Exploratory vs Greedy
+We then play many games against the opponent. To select our moves we examine the
+states that would result from each of our possible moves (one for each blank space on the
+board) and look up their current values in the table. Most of the time we move greedily,
+selecting the move that leads to the state with greatest value, that is, with the highest
+estimated probability of winning. Occasionally, however, we select randomly from among
+the other moves instead. These are called exploratory moves because they cause us to
+experience states that we might otherwise never see.
+

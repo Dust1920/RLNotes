@@ -1,0 +1,16 @@
+# Excersice Code: Tic Tac Toe.
+
+## Objective
+In the first excersice code going to make a Tic Tac Toe and check the probabilites of win. 
+
+
+## Construct Tic Tac Toe Model.
+The Tic Tac Toe Board is a game over a grid of $3\times 3$ squares.
+
+\begin{tabular}{c|c|c}
+a_{11}&a_{12}&a_{13}\\
+\hline
+a_{21}&a_{22}&a_{23}\\
+\hline
+a_{31}&a_{32}&a_{33}
+\end{tabular}
