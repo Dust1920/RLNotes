@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "RLNotes",
+    "section": "",
+    "text": "Preface\nReinforced Learning is learning what to do -how to map situations to actions- so as maximize a numerical reard signal.\nWe formalize the problem of reinforcement learning using ideas from dynamical systems theory, specially, as the optimal control of incompletely-known Markov decission processes.\nOne of the challenges that arise in reinforcement learning, and not in other kinds of learning, is the trade-off betweeen exploration and exploitation. The agent has."
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Elements of Reinforcement Learning.",
+    "section": "",
+    "text": "2 An Extended Example: Tic-Tac-Toe\nConsider the familiar child’s game of tic-tac-toe. Two players take turns playing on a three-by-three board. One player plays Xs and the other Os until one player wins by placing three marks in a row, horizontally, vertically, or diagonally, as the X player has in the game shown to the right. If the board fills up with neither player getting three in a row, then the game is a draw.\nBecause a skilled player can play so as never to lose, let us assume that we are playing against an imperfect player, one whose play is sometimes incorrect and allows us to win. For the moment, in fact, let us consider draws and losses to be equally bad for us.\nHow might we construct a player that will find the imperfections in its opponent’s play and learn to maximize its chances of winning?"
+  },
+  {
+    "objectID": "intro.html#construct-decision-making-model",
+    "href": "intro.html#construct-decision-making-model",
+    "title": "1  Elements of Reinforcement Learning.",
+    "section": "2.1 Construct Decision Making Model",
+    "text": "2.1 Construct Decision Making Model\nHere is how the tic-tac-toe problem would be approached with a method making use of a value function. First we would set up a table of numbers, one for each possible state of the game. Each number will be the latest estimate of the probability of our winning from that state. We treat this estimate as the state’s value, and the whole table is the learned value function. State A has higher value than state B, or is considered “better” than state B, if the current estimate of the probability of our winning from A is higher than it is from B. Assuming we always play Xs, then for all states with three Xs in a row the probability of winning is 1, because we have already won. Similarly, for all states with three Os in a row, or that are filled up, the correct probability is 0, as we cannot win from them. We set the initial values of all the other states to 0.5, representing a guess that we have a 50% chance of winning."
+  },
+  {
+    "objectID": "intro.html#exploratory-vs-greedy",
+    "href": "intro.html#exploratory-vs-greedy",
+    "title": "1  Elements of Reinforcement Learning.",
+    "section": "2.2 Exploratory vs Greedy",
+    "text": "2.2 Exploratory vs Greedy\nWe then play many games against the opponent. To select our moves we examine the states that would result from each of our possible moves (one for each blank space on the board) and look up their current values in the table. Most of the time we move greedily, selecting the move that leads to the state with greatest value, that is, with the highest estimated probability of winning. Occasionally, however, we select randomly from among the other moves instead. These are called exploratory moves because they cause us to experience states that we might otherwise never see."
+  },
+  {
+    "objectID": "code_tictactoe.html#objective",
+    "href": "code_tictactoe.html#objective",
+    "title": "2  Excersice Code: Tic Tac Toe.",
+    "section": "2.1 Objective",
+    "text": "2.1 Objective\nIn the first excersice code going to make a Tic Tac Toe and check the probabilites of win."
+  },
+  {
+    "objectID": "code_tictactoe.html#construct-tic-tac-toe-model.",
+    "href": "code_tictactoe.html#construct-tic-tac-toe-model.",
+    "title": "2  Excersice Code: Tic Tac Toe.",
+    "section": "2.2 Construct Tic Tac Toe Model.",
+    "text": "2.2 Construct Tic Tac Toe Model.\nThe Tic Tac Toe Board is a game over a grid of \\(3\\times 3\\) squares \\[\n\\left[\n\\begin{array}{ccc}\na_{11} & a_{12} & a_{13}\\\\\na_{21} & a_{22} & a_{23}\\\\\na_{31} & a_{32} & a_{33}\n\\end{array}\n\\right].\n\\]\nIn each square \\((a_{ij})\\) can write a \\(\\mathbf{X}\\) or \\(\\mathbf{O}\\). A player use the \\(\\mathbf{X}\\) and the other player use the \\(\\mathbf{O}\\). In the game by turns both players place us simbols \\(\\{\\mathbf{X}, \\mathbf{O}\\}\\) in the board. The winner is the first player in obtain a three row, column or principal diagonal.\nFor example, if the first player is \\(\\mathbf{X}\\) and \\[\n    s: a_{11} = \\mathbf{X}, a_{12} = \\mathbf{O}, \\ldots \\left[\n    \\begin{array}{ccc}\n    \\mathbf{X} & \\mathbf{O} & \\mathbf{O} \\\\  \n    \\mathbf{X} & \\mathbf{X} & \\mathbf{} \\\\  \n    \\mathbf{X} & \\mathbf{} & \\mathbf{O} \\\\  \n    \\end{array}\n    \\right].\n\\]\nIn this case, the \\(\\mathbf{X}'s\\) player win. To construct the Decision Model be consider the States Set \\((\\mathcal{S})\\) as the Tic Tac Toe diagrams\n\\[\n    \\mathcal{S} =\\left\\{\\left( k, (i,j), a \\right)\\}_{k}, 1\\leq k \\leq 9, 1 \\leq i,j \\leq 3, a\\in\\{\\mathbf{X},\\mathbf{O}\\}\\right\\}.\n\\]\nThen \\(s\\in \\mathcal{S}\\)\n\\[\\begin{align*}\ns = & \\Biggl\\{\\biggl(1,\\Bigl((1,1),\\mathbf{X}\\Bigr)\\biggl),\\biggl(2,\\Bigl((1,2),\\mathbf{O}\\Bigr)\\biggl),\\biggl(3,\\Bigl((2,2),\\mathbf{X}\\Bigr)\\biggl),\\ldots \\\\\n    & \\biggl(4,\\Bigl((3,3),\\mathbf{O}\\Bigr)\\biggl),\\biggl(5,\\Bigl((3,1),\\mathbf{X}\\Bigr)\\biggl),\\biggl(6,\\Bigl((1,3),\\mathbf{O}\\Bigr)\\biggl),\\biggl(7,\\Bigl((2,1),\\mathbf{X}\\Bigr)\\biggr)\\Biggr\\}\\\\\ns & \\equiv \\left[\n    \\begin{array}{ccc}\n    \\mathbf{X} & \\mathbf{O} & \\mathbf{O} \\\\  \n    \\mathbf{X} & \\mathbf{X} & \\mathbf{} \\\\  \n    \\mathbf{X} & \\mathbf{} & \\mathbf{O} \\\\  \n    \\end{array}\n    \\right]\n\\end{align*}\\]"
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "3  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever."
+  }
+]

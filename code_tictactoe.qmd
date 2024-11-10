@@ -5,12 +5,91 @@ In the first excersice code going to make a Tic Tac Toe and check the probabilit
 
 
 ## Construct Tic Tac Toe Model.
-The Tic Tac Toe Board is a game over a grid of $3\times 3$ squares.
+The Tic Tac Toe Board is a game over a grid of $3\times 3$ squares
+$$
+\left[
+\begin{array}{ccc}
+a_{11} & a_{12} & a_{13}\\
+a_{21} & a_{22} & a_{23}\\
+a_{31} & a_{32} & a_{33}
+\end{array}
+\right].
+$$
 
-\begin{tabular}{c|c|c}
-a_{11}&a_{12}&a_{13}\\
-\hline
-a_{21}&a_{22}&a_{23}\\
-\hline
-a_{31}&a_{32}&a_{33}
-\end{tabular}
+In each square $(a_{ij})$ can write a $\mathbf{X}$ or $\mathbf{O}$. A player use 
+the $\mathbf{X}$ and the other player use the $\mathbf{O}$. In the game by turns 
+both players place us simbols $\{\mathbf{X}, \mathbf{O}\}$ in the board. The 
+winner is the first player in obtain a three row, column or principal diagonal.
+
+For example, if the first player is $\mathbf{X}$ and 
+$$
+    s: a_{11} = \mathbf{X}, a_{12} = \mathbf{O}, \ldots \left[
+    \begin{array}{ccc}
+    \mathbf{X} & \mathbf{O} & \mathbf{O} \\  
+    \mathbf{X} & \mathbf{X} & \mathbf{} \\  
+    \mathbf{X} & \mathbf{} & \mathbf{O} \\  
+    \end{array}
+    \right].
+$$
+
+In this case, the $\mathbf{X}'s$ player win. To construct the Decision Model be consider the States Set $(\mathcal{S})$ as the Tic Tac Toe diagrams 
+
+$$
+    \mathcal{S} =\left\{\left( k, (i,j), a \right)\}_{k}, 1\leq k \leq 9, 1 \leq i,j \leq 3, a\in\{\mathbf{X},\mathbf{O}\}\right\}.
+$$
+
+Then $s\in \mathcal{S}$
+
+\begin{align*}
+s = & \Biggl\{\biggl(1,\Bigl((1,1),\mathbf{X}\Bigr)\biggl),\biggl(2,\Bigl((1,2),\mathbf{O}\Bigr)\biggl),\biggl(3,\Bigl((2,2),\mathbf{X}\Bigr)\biggl),\ldots \\
+    & \biggl(4,\Bigl((3,3),\mathbf{O}\Bigr)\biggl),\biggl(5,\Bigl((3,1),\mathbf{X}\Bigr)\biggl),\biggl(6,\Bigl((1,3),\mathbf{O}\Bigr)\biggl),\biggl(7,\Bigl((2,1),\mathbf{X}\Bigr)\biggr)\Biggr\}\\
+s & \equiv \left[
+    \begin{array}{ccc}
+    \mathbf{X} & \mathbf{O} & \mathbf{O} \\  
+    \mathbf{X} & \mathbf{X} & \mathbf{} \\  
+    \mathbf{X} & \mathbf{} & \mathbf{O} \\  
+    \end{array}
+    \right].
+\end{align*}
+
+Note that exists states $u_1,u_2,\ldots,u_6$ such that 
+
+$$
+    u_1 \to u_2 \to u_3 \to \ldots \to u_6 \to s.
+$$
+
+In other words, exists a function $f:\mathcal{S}\times\mathcal{A} \to \mathcal{S}$ such that
+
+$$
+    S_{t+1} = f(S_t, a_t),
+$$
+
+where $f$ represent the model dynamics. In this case $f$ was the response of the rival. Consider the initial condition $S_0$
+
+$$
+S_0 = \{\} \equiv \left[\begin{array}{ccc}
+&& \\
+&& \\
+&& \\
+\end{array}
+\right]
+$$
+
+when you are the first player, if you are the second (with $\mathbf{X}$ or $\mathbf{O}$)
+
+$$
+    S_0((i,j), p) = \left(1, ((i,j), p) \right), p \in \{\mathbf{X}, \mathbf{O}\}. 
+$$
+
+In both cases, with $S_0$, the agent continue choose a action $a_0$ and obtain the following state
+
+$$
+    S_1 = f(S_0, a_0).
+$$
+
+Later defines the history $H_t$ as the sucession of the following shape
+
+$$
+    H_t = \{S_0, a_0, S_1,a_1, \ldots, a_{t - 1}, S_t\}
+$$
+
