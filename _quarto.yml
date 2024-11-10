@@ -3,13 +3,13 @@ project:
 
 book:
   title: "RLNotes"
-  author: "Norah Jones"
+  author: "David Peña Peralta"
   date: "7/11/2024"
   chapters:
     - index.qmd
     - intro.qmd
     - code_tictactoe.qmd
-    - summary.qmd
+    - multibandits.qmd
     - references.qmd
 
 bibliography: references.bib
