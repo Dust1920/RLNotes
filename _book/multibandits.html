@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>RLNotes - 1&nbsp; Elements of Reinforcement Learning.</title>
+<title>RLNotes - 4&nbsp; The multi armed bandits</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./code_tictactoe.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./references.html" rel="next">
+<link href="./dyn_prog.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Elements of Reinforcement Learning.</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./multibandits.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The multi armed bandits</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -107,7 +107,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link active">
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Elements of Reinforcement Learning.</span></span></a>
   </div>
 </li>
@@ -125,7 +125,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./multibandits.html" class="sidebar-item-text sidebar-link">
+  <a href="./multibandits.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The multi armed bandits</span></span></a>
   </div>
 </li>
@@ -141,24 +141,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#an-extended-example-tic-tac-toe" id="toc-an-extended-example-tic-tac-toe" class="nav-link active" data-scroll-target="#an-extended-example-tic-tac-toe"><span class="header-section-number">2</span> An Extended Example: Tic-Tac-Toe</a>
-  <ul class="collapse">
-  <li><a href="#construct-decision-making-model" id="toc-construct-decision-making-model" class="nav-link" data-scroll-target="#construct-decision-making-model"><span class="header-section-number">2.1</span> Construct Decision Making Model</a></li>
-  <li><a href="#exploratory-vs-greedy" id="toc-exploratory-vs-greedy" class="nav-link" data-scroll-target="#exploratory-vs-greedy"><span class="header-section-number">2.2</span> Exploratory vs Greedy</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Elements of Reinforcement Learning.</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The multi armed bandits</span></h1>
 </div>
 
 
@@ -173,33 +163,8 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Beyond the agent and the enviroment, one can identify four main subelements od a reinforcement learning system:</p>
-<ul>
-<li>A Policy</li>
-<li>A Reward Signal</li>
-<li>A Value Function</li>
-</ul>
-<p>and optionally, a model of the enviroment.</p>
-<p>A <em>policy</em> defines the learning agent’s way of behaving at a given time. In general, policies may be stochastic, specifying probabilities for each action.</p>
-<p>A <em>reward signal</em> defines the goal of a reinforcement learning problem. The agent’s role objective is to maximize the total reward it receives over the long run.</p>
-<p>Whereas the reward signal indicates what is good in immediate sense, a <em>value function</em> specifies what is good in the long run.</p>
-<p>The fourth and final element of some reinforcement learning systems is a model od th eenviroemnt. This is something that mimics the behavior of the envirometn, or more generally, that allows inferences to be made about how the enviroment will behave.</p>
-<section id="an-extended-example-tic-tac-toe" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> An Extended Example: Tic-Tac-Toe</h1>
-<p>Consider the familiar child’s game of tic-tac-toe. Two players take turns playing on a three-by-three board. One player plays Xs and the other Os until one player wins by placing three marks in a row, horizontally, vertically, or diagonally, as the X player has in the game shown to the right. If the board fills up with neither player getting three in a row, then the game is a draw.</p>
-<p>Because a skilled player can play so as never to lose, let us assume that we are playing against an imperfect player, one whose play is sometimes incorrect and allows us to win. For the moment, in fact, let us consider draws and losses to be equally bad for us.</p>
-<p>How might we construct a player that will find the imperfections in its opponent’s play and learn to maximize its chances of winning?</p>
-<section id="construct-decision-making-model" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="construct-decision-making-model"><span class="header-section-number">2.1</span> Construct Decision Making Model</h2>
-<p>Here is how the tic-tac-toe problem would be approached with a method making use of a value function. First we would set up a table of numbers, one for each possible state of the game. Each number will be the latest estimate of the probability of our winning from that state. We treat this estimate as the state’s value, and the whole table is the learned value function. State A has higher value than state B, or is considered “better” than state B, if the current estimate of the probability of our winning from A is higher than it is from B. Assuming we always play Xs, then for all states with three Xs in a row the probability of winning is 1, because we have already won. Similarly, for all states with three Os in a row, or that are filled up, the correct probability is 0, as we cannot win from them. We set the initial values of all the other states to 0.5, representing a guess that we have a 50% chance of winning.</p>
-</section>
-<section id="exploratory-vs-greedy" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="exploratory-vs-greedy"><span class="header-section-number">2.2</span> Exploratory vs Greedy</h2>
-<p>We then play many games against the opponent. To select our moves we examine the states that would result from each of our possible moves (one for each blank space on the board) and look up their current values in the table. Most of the time we move greedily, selecting the move that leads to the state with greatest value, that is, with the highest estimated probability of winning. Occasionally, however, we select randomly from among the other moves instead. These are called exploratory moves because they cause us to experience states that we might otherwise never see.</p>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -437,13 +402,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      <a href="./dyn_prog.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Dynamical Programming</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./code_tictactoe.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Excersice Code: Tic Tac Toe.</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

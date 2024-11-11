@@ -9,6 +9,7 @@ book:
     - index.qmd
     - intro.qmd
     - code_tictactoe.qmd
+    - dyn_prog.qmd
     - multibandits.qmd
     - references.qmd
 

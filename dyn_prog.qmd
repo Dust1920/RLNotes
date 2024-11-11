@@ -1,0 +1,118 @@
+# Dynamical Programming
+
+## Introduction
+
+The temporal structure of a typical dynamic program is 
+
+1. An initial state $X_0$ is given
+2. $t\leftarrow 0$
+3. while $t<T$ do
+4. () The controller of the system observes the current state $X_t$
+5. The controller chooses an action $A_t$ 
+6. () The controller receives a reward $R_t$ that depends on the current state and action. 
+7. () the state update to $X_{t+1}$
+8. () $t\leftarrow t + 1$
+9. end
+
+The state $X_t$ is a vector listing current values of variables deemed relevant to choosing
+the current action. The action $A_t$ is a vector describing choices of a set of decision
+variables. If $T<\infty$  then the problem has a finite horizon. Otherwise it is an infinite
+horizon problem.
+
+Dynamic programming provides a way to maximize expected lifetime reward of
+a decision maker who receives a prospective reward sequence $(R_t)_{t\geq 0}$ and who confronts
+a system that maps today’s state and control into next period’s state. A lifetime
+reward is an aggregation of the individual period rewards $(R_t)_{t\geq 0}$ into a single value.
+An example of lifetime reward is an expected discounted sum 
+
+$$
+    E\left[\sum_{t\geq 0}\beta^t R_t\right]
+$$
+
+for some $\beta\in (0,1)$. 
+
+**Example** A manager wants to set prices and inventories to maximize a firm's expected present value (EPV), which, given interest rate $r$, is defined as 
+
+$$
+    E\left[\sum_{k\geq 0} \pi_{k}\left(\dfrac{1}{1+r}\right)^{k}\right].
+$${#eq-1}
+
+Here $X_t$, will be a vector that quantifies the size of the inventories, prices set by competitors and other factors factors relevant to profit maximization. The action $A_t$ sets current prices and orders of new stock. The current reward $R_t$ is current profit $\pi_t$, and the profit stream $\{\pi_t\}_{t\geq 0}$ is aggregagted into a lifetime reward via @eq-1.
+
+The core theory of dynamic programming is relative simple and concise. But implementation can be computationally demanding. That situation provides one of the major challenges facing the field of dynamic programming. 
+
+## Bellman Equations 
+In this section we introduce the recursive structure of dynamic programming in a
+simple setting. After solving a finite-horizon model, we consider an infinite-horizon
+version and explain how it produces a system of nonlinear equations. Then we turn
+to methods for solving such systems.
+
+### Finite-Horizon Job Search
+
+We begin with a celebrated model of job search created by McCall (1970). McCall
+analyzed the decision problem of an unemployed worker in terms of current and
+prospective wage offers, impatience, and the availability of unemployment compensation.
+
+#### A Two Period Problem
+
+Imagine someone who begins her working life at time $t=1$ without employment.
+While unemployed, she receives a new job offer paying wage $W_t$ at each date $t$. She can accept the offer and work permanently at that wage level or reject the offer, receive unemployment compensation $c$, and draw a new offer next period. We assume that the wage offer sequence is i.i.d and nonegative, with distribution $\varphi$. In particular,
+
+* $W\subset \mathbb{R}^{+}$ is a finite set of possible wage outcomes and 
+* $\varphi:W\to [0,1]$ is a probability distribution on $W$, assigning a probability $\varphi(w)$ to each possible wage outcome $w$.
+
+The worker is impatient. Impatiente is parametrized by a time discount factor $\beta\in (0,1)$, so that the present value of a next-period payoff of $y$ dollars is $\beta_y$. Since $\beta < 1$, the worker will be tempted to accept reasonable offeres, rather than to wait for better ones. A key question is how long to wait. 
+
+Suppose as a first step that working life is just two periods. To solve our problem we work backwards, starting at the final date $t=2$ after $W_2$ has been observed. 
+
+If she is already employed, the worker has no decision to make: she continues working at her current wage. If she is unemployed, then she should take the largest of $c$ and $W_2$.
+
+Now we step back to $t = 1$. At this time, having received offer $W_1$, the unemployed
+worker’s options are (a) accept $W_1$ and receive it in both periods or (b) reject it, receive
+unemployment compensation $c$, and then, in the second period, choose the maximum
+of $W_2$ and $c$.
+
+Let's assume that the worker seeks to maximize expected present value. The EPV
+of option (a) is $W_1 + \beta W_1$, which is also called the stopping value. The EPV of option
+(b), also called the continuation value, is $h_1 := c +\beta E\left[\max\{c, W_2\}\right]$. More explicitly,
+
+$$
+    h_1 = c + \beta \sum_{w'\in W}v_2(w')\varphi(w'), \text{where }v_2(w) := \max\{c,w\}.
+$${#eq-2}
+
+The optimal choice as $t=1$ is now clear: accept the offer if $W_1+\beta W_1 \geq h$ and reject otherwise.
+
+#### Value Functions
+
+A key idea in dynamic programming is to use 
+*value functions* to track maximal lifetime rewards from 
+a given state at a given time. The time 2 value function 
+$v_2$ in @eq-2 returns the maximum value obtained in the 
+final stage for each possible realization of the time 2 
+wage offer. The time 1 value function $v_1$ evaluated at 
+$w\in W$ is
+
+$$
+      v_1 := \max\{w + \beta w, c + \beta \sum_{w'\in W}v_2(w)\varphi(w')\}
+$${#eq-3}
+
+It represents the present value of expected lifetime 
+income after receiving the first offer $w$, conditional 
+conditional on choosing optimally in both periods. 
+
+Now calculate the $w$ such that solves the indifference 
+condition
+
+$$
+    w + \beta w = c + \beta \sum_{w'\in W}v_2(w')\varphi(w')
+$$
+
+This is,
+\begin{align*}
+    w = & \dfrac{c + \beta \sum_{w'\in W}v_2(w')\varphi(w')}{1 + \beta}\\
+      = & \dfrac{h_1}{1 + \beta} 
+\end{align*}
+
+#### Three Periods
+
+ 
