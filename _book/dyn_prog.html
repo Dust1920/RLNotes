@@ -236,11 +236,19 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math display">\[
     w + \beta w = c + \beta \sum_{w'\in W}v_2(w')\varphi(w')
 \]</span></p>
-<p>This is,</p>
-<p><span class="math display">\[\begin{align*}
+<p>This is, <span class="math display">\[\begin{align*}
     w = &amp; \dfrac{c + \beta \sum_{w'\in W}v_2(w')\varphi(w')}{1 + \beta}\\
       = &amp; \dfrac{h_1}{1 + \beta}
 \end{align*}\]</span></p>
+</section>
+<section id="three-periods" class="level4" data-number="3.2.1.3">
+<h4 data-number="3.2.1.3" class="anchored" data-anchor-id="three-periods"><span class="header-section-number">3.2.1.3</span> Three Periods</h4>
+<p>Now let’s suppose that the works in period <span class="math inline">\(t=0\)</span> as well as <span class="math inline">\(t=1,2\)</span>. At <span class="math inline">\(t = 0\)</span>, the value of accepting the current offer <span class="math inline">\(W_0\)</span> is <span class="math inline">\(W_0 + \beta W_0 + \beta ^2 W_0\)</span>, while maximal value of rejecting and waiting, is <span class="math inline">\(c\)</span> plus, after discounting by <span class="math inline">\(\beta\)</span>, the maximum value that can be obtained by behaving optimally from <span class="math inline">\(t=1\)</span>. We have already calculated this value: it is just <span class="math inline">\(v_1(W_1)\)</span>, as given is <a href="#eq-3">Equation&nbsp;<span>3.3</span></a>!</p>
+<p>Maximal time zero value <span class="math inline">\(v_0(w)\)</span> is the maximum of the value of these two options, given <span class="math inline">\(W_0 = w\)</span>, so we can write</p>
+<p><span id="eq-5"><span class="math display">\[
+      v_0(w) = \max\{w+\beta w+\beta^2w, c + \beta \sum_{w'\in W}v_1(w')\varphi(w')\}
+\tag{3.4}\]</span></span></p>
+<p>By plugging <span class="math inline">\(v_1\)</span> from <a href="#eq-3">Equation&nbsp;<span>3.3</span></a> into this expression, we can determine <span class="math inline">\(v_0\)</span>, as well as the optimal action, that one that achieves the largest value in the max term in <a href="#eq-5">Equation&nbsp;<span>3.4</span></a>.</p>
 
 
 </section>

@@ -114,5 +114,44 @@ This is,
 \end{align*}
 
 #### Three Periods
+Now let's suppose that the works in period $t=0$ as well 
+as $t=1,2$. At $t = 0$, the value of accepting the 
+current offer $W_0$ is $W_0 + \beta W_0 + \beta ^2 W_0$,
+while maximal value of rejecting and waiting, is $c$ 
+plus, after discounting by $\beta$, the maximum value
+that can be obtained by behaving optimally from $t=1$. 
+We have already calculated this value: it is just 
+$v_1(W_1)$, as given is @eq-3!
 
- 
+Maximal time zero value $v_0(w)$ is the maximum of the 
+value of these two options, given $W_0 = w$, so we can 
+write 
+
+$$
+      v_0(w) = \max\{w+\beta w+\beta^2w, c + \beta \sum_{w'\in W}v_1(w')\varphi(w')\}
+$${#eq-5}
+
+By plugging $v_1$ from @eq-3 into this expression, we can 
+determine $v_0$, as well as the optimal action, that one 
+that achieves the largest value in the max term in @eq-5.
+
+:::{#exm-1}
+Consider the i.i.d random variables $W_t\sim \text{BetaBinomial}(n,\alpha, \beta)$. 
+
+$$
+    h_1 = c + \beta E\left[\max\{c,W_2\}\right].
+$$
+
+Remembering that 
+
+$$
+    E[f(X)] = \sum_{x\in R_X} f(x)\mathcal{P}[X = k]
+$$
+
+and define $v_2(w') = \max\{c,w'\}, \varphi(k) = \mathcal{P}[X = k]$ and have 
+
+$$
+      h_1 = c + \beta \sum_{w\in W'}v_2(w')\varphi(w').
+$$
+
+:::
