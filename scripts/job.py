@@ -76,6 +76,17 @@ class JobModel:
         return g
 
 
+    def w_1star(self):
+        """
+            Computes reservation wage at t = 1
+        """
+        smax = [max(self.alt_cost, s) for s in self.var]
+        expected_w = np.sum(np.array(smax) * self.rv)
+        h_1 = self.alt_cost + self.discount * expected_w
+        y = h_1 / (1 + self.discount)
+        return y
+
+
 BETA = 0.95
 ALT_COST = 10
 JOB_DOM = (10.0,60.0)
@@ -87,5 +98,5 @@ RANDOM_PARS = {'BetaBinomial':{"n": N,
 
 BEST_JOB = JobModel(BETA, ALT_COST, JOB_DOM, N, RANDOM_PARS)
 BEST_JOB.simulate_rv()
-
 print(BEST_JOB.h_1(1.0))
+print(BEST_JOB.w_1star())
